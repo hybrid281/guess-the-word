@@ -154,7 +154,7 @@ playAgainButton.addEventListener("click", function () {
     guessRemainDisplay.innerText = `${remainingGuesses} guesses`;
     guessList.innerHTML = "";
     getWord();
-    
+
     //reset the UI elements
     playAgainButton.classList.add("hide");
     guessButton.classList.remove("hide");
