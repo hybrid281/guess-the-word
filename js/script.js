@@ -40,6 +40,7 @@ guessButton.addEventListener("click", function(e) {
 
 
 const inputAccept = function(input) {
+    //function used to validate entry
     const acceptedLetter = /[a-zA-Z]/;
     if (input.length === 0) {
         //check if value is empty
@@ -66,5 +67,38 @@ const makeGuess = function(guess) {
         guessedLetters.push(guess);
         console.log(guessedLetters);
         //this pushes the guesses to the array for tracking
+        showGuessedLetters();
+        updateWordInProgress(guessedLetters);
+    }
+};
+
+const showGuessedLetters = function (guess) {
+    guessList.innerHTML = ""; //clear the list
+    for(const letter of guessedLetters) {
+        const li = document.createElement("li"); //create list item
+        li.innerText = letter;
+        guessList.append(li); 
+    }
+};
+
+const updateWordInProgress = function (guessedLetters) {
+    const wordUpper = word.toUpperCase();
+    const wordArray = wordUpper.split("");
+    const revealWord = []; //create new array to take correct guesses
+    for (const letter of wordArray) {
+        if (guessedLetters.includes(letter)) {
+          revealWord.push(letter.toUpperCase());
+        } else {
+            revealWord.push("•")
+        }
+    }
+    wordInProgress.innerText = revealWord.join("");
+    checkForWin();
+};
+
+const checkForWin = function () {
+    if (word.toUpperCase() === wordInProgress.innerText) {
+        message.classList.add("win"); //add win class to the "message" DOM query
+        message.innerHTML = `<p class="highlight">You guessed the correct word! Congrats!</p>`;
     }
 };
